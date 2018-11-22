@@ -7,6 +7,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
+        chunkFilename: '[id].js',
         publicPath: ''
     },
     resolve: {
@@ -49,7 +50,8 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif)/
+                test: /\.(png|jpe?g|gif)$/,
+                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
             }
         ]
     }
