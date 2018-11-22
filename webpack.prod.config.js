@@ -1,10 +1,11 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
-    mode: 'development',
+    devtool: 'cheap-module-source-map',
+    mode: 'production',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -16,17 +17,17 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     module: {
-        rules: [
-            {
-                test: /\.js$/, 
+        rules: [{
+                test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
             },
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                use: [
-                    { loader: 'style-loader' },
+                use: [{
+                        loader: 'style-loader'
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -62,6 +63,7 @@ module.exports = {
             template: __dirname + '/src/index.html',
             filename: 'index.html',
             inject: 'body'
-        })
+        }),
+        new webpack.optimize.UglifyJsPlugin()
     ]
 }
